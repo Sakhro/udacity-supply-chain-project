@@ -78,7 +78,7 @@ contract SupplyChain is
 
     // Define a modifier that checks if the paid amount is sufficient to cover the price
     modifier paidEnough(uint256 _price) {
-        require(msg.value >= _price);
+        require(msg.value >= _price, "Value paid is not enough");
         _;
     }
 
@@ -92,49 +92,61 @@ contract SupplyChain is
 
     // Define a modifier that checks if an item.state of a upc is Harvested
     modifier harvested(uint256 _upc) {
-        require(items[_upc].itemState == State.Harvested);
+        require(
+            items[_upc].itemState == State.Harvested,
+            "Item is not harvested"
+        );
         _;
     }
 
     // Define a modifier that checks if an item.state of a upc is Processed
     modifier processed(uint256 _upc) {
-        require(items[_upc].itemState == State.Processed);
+        require(
+            items[_upc].itemState == State.Processed,
+            "Item is not processed"
+        );
         _;
     }
 
     // Define a modifier that checks if an item.state of a upc is Packed
     modifier packed(uint256 _upc) {
-        require(items[_upc].itemState == State.Packed);
+        require(items[_upc].itemState == State.Packed, "Item is not packed");
         _;
     }
 
     // Define a modifier that checks if an item.state of a upc is ForSale
     modifier forSale(uint256 _upc) {
-        require(items[_upc].itemState == State.ForSale);
+        require(items[_upc].itemState == State.ForSale, "Item is not for sale");
         _;
     }
 
     // Define a modifier that checks if an item.state of a upc is Sold
     modifier sold(uint256 _upc) {
-        require(items[_upc].itemState == State.Sold);
+        require(items[_upc].itemState == State.Sold, "Item is not sold");
         _;
     }
 
     // Define a modifier that checks if an item.state of a upc is Shipped
     modifier shipped(uint256 _upc) {
-        require(items[_upc].itemState == State.Shipped);
+        require(items[_upc].itemState == State.Shipped, "Item is not shipped");
         _;
     }
 
     // Define a modifier that checks if an item.state of a upc is Received
     modifier received(uint256 _upc) {
-        require(items[_upc].itemState == State.Received);
+        require(
+            items[_upc].itemState == State.Received,
+            "Item is not recieved"
+        );
         _;
     }
 
     // Define a modifier that checks if an item.state of a upc is Purchased
     modifier purchased(uint256 _upc) {
-        require(items[_upc].itemState == State.Purchased);
+        require(
+            items[_upc].itemState == State.Purchased,
+            "Item is not purchased"
+        );
         _;
     }
 
@@ -281,7 +293,7 @@ contract SupplyChain is
     {
         // Update the appropriate fields - ownerID, retailerID, itemState
         items[_upc].ownerID = msg.sender;
-        items[_upc].distributorID = msg.sender;
+        items[_upc].retailerID = msg.sender;
         items[_upc].itemState = State.Received;
         // Emit the appropriate event
         emit Received(_upc);
